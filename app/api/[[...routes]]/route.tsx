@@ -2,7 +2,7 @@
 
 import { Button, Frog, TextInput } from 'frog'
 import { devtools } from 'frog/dev'
-import { neynar } from 'frog/hubs'
+// import { neynar } from 'frog/hubs'
 import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 import { colors } from 'frog/ui'
@@ -11,11 +11,20 @@ import { colors } from 'frog/ui'
 const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
-  hub: neynar({ apiKey: 'NEYNAR_FROG_FM' }),
-  title: 'Frog Frame',
-})
 
-const apiUrl = "https://neynar.com";
+  // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' }),
+    
+  title: 'Frog Frame',
+  hub :{
+    apiUrl: "https://hubs.airstack.xyz",
+    fetchOptions: {
+      headers: {
+        "x-airstack-hubs": "169e066379fe64383829ba720e9d3717a",
+      }
+    }
+  }
+});
+
 // const reactionScheme = z.object
 
 
@@ -24,10 +33,12 @@ const apiUrl = "https://neynar.com";
 
 
 
-app.frame('/', (c) => {
-  // const { frameData } = c;
-  // const { buttonIndex, fid, castId } = frameData;
-  // console.log(c.res);
+app.frame('/', async(c) => {
+  const { frameData } = c;
+
+  // const {fid} = frameData;
+
+  // console.log(`${fid}`);
 
   return c.res({
     action:"/second",
@@ -65,7 +76,7 @@ app.frame('/second', (c) => {
         height: "100vh",
         fontSize: "2rem" 
       }}>
-        FID here
+         `${fid}`
       </div>
     ),
     intents: [
