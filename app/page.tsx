@@ -5,8 +5,10 @@ import Image from 'next/image'
 import styles from './page.module.css'
 
 export async function generateMetadata(): Promise<Metadata> {
+  // const frameTags = await getFrameMetadata(
+  //   `${process.env.VERCEL_URL || 'http://localhost:3000'}/api`,
   const frameTags = await getFrameMetadata(
-    `${process.env.VERCEL_URL || 'http://localhost:3000'}/api`,
+    `https://please-work-bice.vercel.app/api`,
   )
   return {
     other: frameTags,
