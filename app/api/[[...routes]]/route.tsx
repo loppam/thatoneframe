@@ -25,9 +25,9 @@ const apiUrl = "https://neynar.com";
 
 
 app.frame('/', (c) => {
-  const { frameData } = c;
-  const { buttonIndex, fid, castId } = frameData;
-  console.log(c.res);
+  // const { frameData } = c;
+  // const { buttonIndex, fid, castId } = frameData;
+  // console.log(c.res);
 
   return c.res({
     action:"/second",
