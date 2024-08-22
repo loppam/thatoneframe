@@ -36,7 +36,8 @@ app.frame('/second', (c) => {
   
   const {frameData, verified } = c
 
-  const{fid ,buttonIndex } = frameData;
+  const { fid } = frameData as { fid: number };
+
 
   // if (verified){
  return c.res({
@@ -61,7 +62,7 @@ app.frame('/second', (c) => {
   // } else {
   //   console.log("erorrrrrr")
   // }
-  console.log(fid ,buttonIndex)
+  // console.log(fid ,buttonIndex)
  
 })
 
