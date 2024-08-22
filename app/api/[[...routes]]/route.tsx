@@ -1,20 +1,16 @@
 /** @jsxImportSource frog/jsx */
 
-import { Button, Frog, TextInput } from 'frog'
-import { devtools } from 'frog/dev'
-// import { neynar } from 'frog/hubs'
-import { handle } from 'frog/next'
-import { serveStatic } from 'frog/serve-static'
-import { colors } from 'frog/ui'
+import { Button, Frog } from 'frog';
+import { devtools } from 'frog/dev';
+import { handle } from 'frog/next';
+import { serveStatic } from 'frog/serve-static';
 
 const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
 
-  // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' }),
-    
   title: 'get fid',
-  hub :{
+  hub: {
     apiUrl: "https://hubs.airstack.xyz",
     fetchOptions: {
       headers: {
@@ -24,53 +20,44 @@ const app = new Frog({
   }
 });
 
-// const reactionScheme = z.object
-
-
-// Uncomment to use Edge Runtime
-// export const runtime = 'edge'
-
-
-
 app.frame('/second', (c) => {
-  
-  const {frameData, verified } = c
+  const { frameData, verified } = c;
 
+  // Debug logs
+  console.log("frameData:", frameData);
+  console.log("verified:", verified);
+
+  // Check if frameData is valid
+  if (!frameData || !frameData.fid || !frameData.castId || !verified) {
+    console.log("Verification failed: Invalid frame data");
+    return c.res({
+      action: "/",
+      image: (
+        <div style={{
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: "black",
+          fontSize: "2rem"
+        }}>
+          Verification failed: Invalid frame data
+        </div>
+      ),
+      intents: [
+        <Button>back</Button>,
+      ],
+    });
+  }
+
+  // Frame is valid, proceed with the intended action
   const { fid } = frameData as { fid: number };
 
-
-  // if (verified){
- return c.res({
-    action:"/",
-    image: (
-      <div style={{
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontSize: "2rem" 
-      }}>
-       `your fid is {fid}` 
-      </div>
-    ),
-    intents: [
-      <Button  >back</Button>,
-      
-    ],
-  })
-  // } else {
-  //   console.log("erorrrrrr")
-  // }
-  // console.log(fid ,buttonIndex)
- 
-})
-
-
-app.frame('/', (c) => {
+  console.log("fid:", fid);
 
   return c.res({
-    action:"/second",
+    action: "/",
     image: (
       <div style={{
         color: "white",
@@ -78,36 +65,40 @@ app.frame('/', (c) => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        fontSize: "2rem" 
+        backgroundColor: "black",
+        fontSize: "2rem"
       }}>
-         {/* `${fid}` */}
-         Get FID
-        
+        Your fid is {fid}
       </div>
     ),
     intents: [
- 
-      <Button>go</Button>,
-      
+      <Button>back</Button>,
     ],
-  })
-})
+  });
+});
 
-devtools(app, { serveStatic })
+app.frame('/', (c) => {
+  return c.res({
+    action: "/second",
+    image: (
+      <div style={{
+        color: "white",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        fontSize: "2rem"
+      }}>
+        Get FID
+      </div>
+    ),
+    intents: [
+      <Button>go</Button>,
+    ],
+  });
+});
 
-export const GET = handle(app)
-export const POST = handle(app)
+devtools(app, { serveStatic });
 
-// NOTE: That if you are using the devtools and enable Edge Runtime, you will need to copy the devtools
-// static assets to the public folder. You can do this by adding a script to your package.json:
-// ```json
-// {
-//   scripts: {
-//     "copy-static": "cp -r ./node_modules/frog/_lib/ui/.frog ./public/.frog"
-//   }
-// }
-// ```
-// Next, you'll want to set up the devtools to use the correct assets path:
-// ```ts
-// devtools(app, { assetsPath: '/.frog' })
-// ```
+export const GET = handle(app);
+export const POST = handle(app);
