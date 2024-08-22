@@ -14,7 +14,7 @@ const app = new Frog({
     apiUrl: "https://hubs.airstack.xyz",
     fetchOptions: {
       headers: {
-        "x-airstack-hubs": "169e066379fe64383829ba720e9d3717a",
+        "x-airstack-hubs": "1765e8aa5090e480aa53fb9f3955c6dbb",
       }
     }
   }
@@ -60,7 +60,7 @@ app.frame('/second', (c) => {
     action: "/",
     image: (
       <div style={{
-        color: "white",
+        color: `#${fid}`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -89,7 +89,7 @@ app.frame('/', (c) => {
         height: "100vh",
         fontSize: "2rem"
       }}>
-        Get FID
+        Get FID Color
       </div>
     ),
     intents: [
