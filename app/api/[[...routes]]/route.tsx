@@ -9,7 +9,7 @@ const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
 
-  title: 'get fid',
+  title: 'get fid color',
   hub: {
     apiUrl: "https://hubs.airstack.xyz",
     fetchOptions: {
