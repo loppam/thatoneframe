@@ -1,26 +1,26 @@
 /** @jsxImportSource frog/jsx */
 
-import { Button, Frog } from 'frog';
-import { devtools } from 'frog/dev';
-import { handle } from 'frog/next';
-import { serveStatic } from 'frog/serve-static';
+import { Button, Frog } from "frog";
+import { devtools } from "frog/dev";
+import { handle } from "frog/next";
+import { serveStatic } from "frog/serve-static";
 
 const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
 
-  title: 'get fid color',
+  title: "get fid color",
   hub: {
     apiUrl: "https://hubs.airstack.xyz",
     fetchOptions: {
       headers: {
         "x-airstack-hubs": "1765e8aa5090e480aa53fb9f3955c6dbb",
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
-app.frame('/second', (c) => {
+app.frame("/second", (c) => {
   const { frameData, verified } = c;
 
   // Debug logs
@@ -33,21 +33,21 @@ app.frame('/second', (c) => {
     return c.res({
       action: "/",
       image: (
-        <div style={{
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundColor: "black",
-          fontSize: "2rem"
-        }}>
+        <div
+          style={{
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            backgroundColor: "black",
+            fontSize: "2rem",
+          }}
+        >
           Verification failed: Invalid frame data
         </div>
       ),
-      intents: [
-        <Button>back</Button>,
-      ],
+      intents: [<Button>back</Button>],
     });
   }
 
@@ -59,42 +59,42 @@ app.frame('/second', (c) => {
   return c.res({
     action: "/",
     image: (
-      <div style={{
-        color: `#${fid}`,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "black",
-        fontSize: "2rem"
-      }}>
+      <div
+        style={{
+          color: `white`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: `#${fid}`,
+          fontSize: "2rem",
+        }}
+      >
         Your fid is {fid}
       </div>
     ),
-    intents: [
-      <Button>back</Button>,
-    ],
+    intents: [<Button>back</Button>],
   });
 });
 
-app.frame('/', (c) => {
+app.frame("/", (c) => {
   return c.res({
     action: "/second",
     image: (
-      <div style={{
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontSize: "2rem"
-      }}>
+      <div
+        style={{
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          fontSize: "2rem",
+        }}
+      >
         Get FID Color
       </div>
     ),
-    intents: [
-      <Button>go</Button>,
-    ],
+    intents: [<Button>go</Button>],
   });
 });
 
