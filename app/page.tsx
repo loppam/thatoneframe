@@ -8,6 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
   // const frameTags = await getFrameMetadata(
   //   `${process.env.VERCEL_URL || 'http://localhost:3000'}/api`,
   // )
+  
+  // const frameTags = await getFrameMetadata(
+  //   `${process.env.VERCEL_URL || 'http://localhost:3000'}/api`,
+  // )
+
   const frameTags = await getFrameMetadata(
     `https://please-work-bice.vercel.app/api`,
   )

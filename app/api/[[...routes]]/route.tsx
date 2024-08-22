@@ -6,7 +6,6 @@ import { devtools } from 'frog/dev'
 import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 import { colors } from 'frog/ui'
-// import { z } from 'zod'
 
 const app = new Frog({
   assetsPath: "/",
@@ -14,7 +13,7 @@ const app = new Frog({
 
   // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' }),
     
-  title: 'Frog Frame',
+  title: 'get fid',
   hub :{
     apiUrl: "https://hubs.airstack.xyz",
     fetchOptions: {
@@ -33,12 +32,41 @@ const app = new Frog({
 
 
 
-app.frame('/', async(c) => {
-  const { frameData } = c;
+app.frame('/second', (c) => {
+  
+  const {frameData, verified } = c
 
-  // const {fid} = frameData;
+  const{fid ,buttonIndex } = frameData;
 
-  // console.log(`${fid}`);
+  // if (verified){
+ return c.res({
+    action:"/",
+    image: (
+      <div style={{
+        color: "white",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        fontSize: "2rem" 
+      }}>
+       `your fid is {fid}` 
+      </div>
+    ),
+    intents: [
+      <Button  >back</Button>,
+      
+    ],
+  })
+  // } else {
+  //   console.log("erorrrrrr")
+  // }
+  console.log(fid ,buttonIndex)
+ 
+})
+
+
+app.frame('/', (c) => {
 
   return c.res({
     action:"/second",
@@ -51,37 +79,14 @@ app.frame('/', async(c) => {
         height: "100vh",
         fontSize: "2rem" 
       }}>
-        Get FID
-      </div>
-    ),
-    intents: [
-      <Button  >Get FID</Button>,
-      
-    ],
-  })
-})
-
-
-app.frame('/second', (c) => {
-
-
-  return c.res({
-    action:"/",
-    image: (
-      <div style={{
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontSize: "2rem" 
-      }}>
-         `${fid}`
+         {/* `${fid}` */}
+         Get FID
+        
       </div>
     ),
     intents: [
  
-      <Button>back</Button>,
+      <Button>go</Button>,
       
     ],
   })
