@@ -4,7 +4,11 @@ import { Button, Frog } from "frog";
 import { devtools } from "frog/dev";
 import { handle } from "frog/next";
 import { serveStatic } from "frog/serve-static";
-
+import { Jersey_10 } from "next/font/google";
+const jersey_10 = Jersey_10({
+  subsets: ["latin"],
+  weight: "400",
+});
 const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
@@ -67,10 +71,11 @@ app.frame("/second", (c) => {
           alignItems: "center",
           height: "100vh",
           backgroundColor: `#${fid}`,
-          fontSize: "2rem",
+          fontFamily: `jersey_10`,
+          fontSize: "3rem",
         }}
       >
-        Your fid is {fid}
+        Your fid color is: #{fid}
       </div>
     ),
     intents: [<Button>back</Button>],
